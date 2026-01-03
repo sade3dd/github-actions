@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  github-actions:
+    image: ghcr.io/workerspages/github-actions:github-actions-mariadb
+    container_name: github-actions
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data        # 数据库(SQLite)及虚拟环境存储
+      - ./scripts:/app/scripts  # 脚本文件存储
+    environment:
+      - TZ=Asia/Shanghai
+      # 管理员账号设置
+      - ADMIN_USER=admin
+      - ADMIN_PASSWORD=admin
+      # JWT 密钥 (建议修改为随机字符串)
+      - JWT_SECRET=your_secret_key_change_me
+      
+      # === 数据库配置 (可选) ===
+      # 默认使用内置 SQLite，无需配置
+      # - DATABASE_URL=sqlite:////app/data/github-actions.db
+      
+      # 如需连接外部 MariaDB/MySQL，请取消下方注释并修改参数：
+      # - DATABASE_URL=mysql+pymysql://root:password@192.168.1.100:3306/github_actions

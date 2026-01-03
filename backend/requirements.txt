@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+sqlalchemy
+pydantic
+passlib
+bcrypt==3.2.2
+python-jose[cryptography]
+apscheduler
+loguru
+requests
+python-multipart
+pymysql
